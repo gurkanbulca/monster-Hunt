@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Canavar Avı</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <link rel="stylesheet" href="css/foundation.min.css">
+    <link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+<div id="app">
+    <section class="row">
+        <div class="small-6 columns">
+            <h1 class="text-center">SEN</h1>
+            <div class="healthbar">
+                <div class="healthbar text-center" style="background-color: green; margin: 0; color: white;" :style="{width:playerHp+'%'}">
+                    {{playerHp+'%'}}
+                </div>
+            </div>
+        </div>
+        <div class="small-6 columns">
+            <h1 class="text-center">CANAVAR</h1>
+            <div class="healthbar">
+                <div class="healthbar text-center" style="background-color: green; margin: 0; color: white;" :style="{width:monsterHp+'%'}">
+                    {{monsterHp+'%'}}
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="row controls" v-if="!gameIsOn">
+        <div class="small-12 columns">
+            <button id="start-game" @click="startGame">YENİ OYUN</button>
+        </div>
+    </section>
+    <section class="row controls" v-else>
+        <div class="small-12 columns">
+            <button id="attack" @click="attack">SALDIRI</button>
+            <button id="special-attack" @click="specialAttack">ÖZEL SALDIRI</button>
+            <button id="heal" @click="heal">İLK YARDIM</button>
+            <button id="give-up" @click="giveUp">PES ET!</button>
+        </div>
+    </section>
+    <section class="row log" v-if="logs.length!=0">
+        <div class="small-12 columns">
+            <ul >
+                <li v-for="log in logs">
+                    <div class="player-turn" v-if="!log.isHeal">Oyuncu ({{log.playerDamage}}) hasar verdi.</div>
+                    <div class="player-turn" v-else>Oyuncu ({{log.playerDamage}}) can kazandı.</div>
+                    <div class="monster-turn" v-if="log.monsterDamage!=0">Canavar ({{log.monsterDamage}}) hasar verdi.</div>
+
+                </li>
+            </ul>
+        </div>
+    </section>
+</div>
+<script src="app.js"></script>
+</body>
+</html>
